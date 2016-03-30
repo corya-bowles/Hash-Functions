@@ -4,7 +4,7 @@
     </description>
   <!-- set global properties for this build -->
   <property name="ant.project.name" value="hash-functions"/>
-  <property name="main_class_name" value="Decryption"/>
+  <property name="main_class_name" value="HashDemo"/>
   <property name="jarname"  value="${ant.project.name}"/> 
   <!-- set directories -->
   <property name="src" location="src"/>
@@ -77,6 +77,11 @@ Broken???
         </manifest>
     </jar>
     <copy file="${dist}/${jarname}-${DSTAMP}.jar" tofile="./${jarname}.jar" overwrite="true"/>
+  </target>
+
+  <target name="run">
+    <java classpathref="project.classpath" 
+          classname="${arg0}" />
   </target>
 
   <target name="clean"
