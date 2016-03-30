@@ -18,16 +18,24 @@ public class HashFunctions {
 
 	/**
 	 * Receives two byte arrays and determines the number of bits
-	 * that are different between the two arrays.
+	 * that are different between the two arrays. Assumes both byte
+	 * arrays are of the same length
 	 * @return difference
 	 */
 	public static int diff(byte[] a, byte[] b) {
 
-		for(int i = 0; i < a.length && i < b.length; i++) {
+		int diffCount = 0;
 
+		String strA = HashFunctions.getBinaryByteString(a);
+		String strB = HashFunctions.getBinaryByteString(b);
+		
+		for(int i = 0; i < strA.length(); i++) {
+			if(strA.charAt(i) != strB.charAt(i)) {
+				diffCount++;
+			}
 		}
 
-		return 0;
+		return diffCount;
 	}
 
 	/**
@@ -109,6 +117,9 @@ public class HashFunctions {
 		// test flip method
 		byte[] test2 = HashFunctions.flip(test1, 5);
 		System.out.println(HashFunctions.getBinaryByteString(test2));
+
+		// test diff method
+		System.out.println(HashFunctions.diff(test1, test2));
 
 	}
 
