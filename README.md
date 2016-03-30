@@ -4,13 +4,19 @@
 
 ```
 cd <project_folder>
-ant
+ant compile
 ```
 
 ## Running
 
 ```
-java -jar crypto-block-ciphers.jar
+java -jar name-of-jarfile.jar
+```
+
+or
+
+```
+ant run -Darg0 name-of-classfile
 ```
 
 To run individual files
