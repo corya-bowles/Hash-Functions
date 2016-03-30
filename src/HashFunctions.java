@@ -25,13 +25,9 @@ public class HashFunctions {
 	public static int diff(byte[] a, byte[] b) {
 
 		int diffCount = 0;
-
-		String strA = HashFunctions.getBinaryByteString(a);
-		String strB = HashFunctions.getBinaryByteString(b);
-		
-		for(int i = 0; i < strA.length(); i++) {
-			if(strA.charAt(i) != strB.charAt(i)) {
-				diffCount++;
+		for(int i = 0; i < a.length; i++) {
+			for(int j = 0; j < 8; j++) {
+				diffCount += (a[i] >> j) ^ (b[i] >> j);
 			}
 		}
 
@@ -66,6 +62,7 @@ public class HashFunctions {
 		}
 
 		return fByteArr;
+		
 	}
 
 	public static String[] getBinaryByteArrayString(byte[] array) {
@@ -119,7 +116,9 @@ public class HashFunctions {
 		System.out.println(HashFunctions.getBinaryByteString(test2));
 
 		// test diff method
-		System.out.println(HashFunctions.diff(test1, test2));
+		byte[] test3 = {0x01, 0x01, 0x01};
+		System.out.println(HashFunctions.getBinaryByteString(test3));
+		System.out.println(HashFunctions.diff(test1, test3));
 
 	}
 
