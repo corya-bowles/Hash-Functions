@@ -1,3 +1,6 @@
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 /**
  * Properties of hash functions project.
  *
@@ -105,6 +108,19 @@ public class HashFunctions {
 
 	}
 
+	//FROM DEMO CODE
+	//as with encryption, we create and initialize an object
+	//that will execute the hash function
+	public static MessageDigest md;
+
+	//FROM DEMO CODE
+	//Truncated version of hash; just take first 4 bytes
+	//requires java.util.Arrays
+	public static byte[] H(byte [] msg){
+		return Arrays.copyOfRange(md.digest(msg), 0, 4);
+	}
+	
+
 	public static void main(String[] args) {
 
 		// test print method
@@ -120,6 +136,25 @@ public class HashFunctions {
 		System.out.println(HashFunctions.getBinaryByteString(test3));
 		System.out.println(HashFunctions.diff(test1, test3));
 
+		System.out.println();
+
+		//Trying out part two of the project
+
+		//SHA-1 is one of the most widely used hash functions
+		//Creates an instance of a SHA-1 mdSUM to be used in this class or something like that, right?  
+		try { md = MessageDigest.getInstance("SHA-1");//32 bytes
+		}
+		catch(NoSuchAlgorithmException e) { e.printStackTrace();
+		}
+
+		 
+
+		
+
+		byte[] arbM = {0x01, 0x01, 0x01, 0x01};
+		System.out.println(HashFunctions.getBinaryByteString(arbM));
+		byte[] hashBytes = md.digest(arbM);
+		System.out.println(HashFunctions.getBinaryByteString(H(hashBytes)));
 	}
 
 }
