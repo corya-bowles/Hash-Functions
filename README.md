@@ -27,5 +27,4 @@ java -cp build <classname>
 
 ## TODO
 
-- Verify that the `diff` method works correctly (two ways of implementing it, have to ask Dr. Collins)
-- Verify that `flip` method is acceptable (technically returns response that Collins wants, but it was implemented differently than how it *should* have been)
+Any time a bit that is a multiple of 8 is flipped, it causes a NumberFormatException, and the flip count for that entire iteration is not incremented. Everything still works  fine, however I am not sure if it will throw off the stats (average, etc.). (There's always the change Collins expects this anyway and it won't matter, but I will have to ask him).
