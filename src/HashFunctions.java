@@ -50,7 +50,9 @@ public class HashFunctions {
 			return a;
 		}
 
-		int arrPos = position % 8;
+		// a[0] ^ (0x01 << position % 8)
+
+		int arrPos = (position % 8);
 		int arrNum = (int)Math.floor(position / 8);
 		char newPosVal = binStringArr[arrNum].charAt(arrPos) == '1' ? '0' : '1';
 		binStringArr[arrNum] = binStringArr[arrNum].substring(0, arrPos) + 
@@ -62,7 +64,7 @@ public class HashFunctions {
 		}
 
 		return fByteArr;
-		
+
 	}
 
 	public static String[] getBinaryByteArrayString(byte[] array) {
@@ -116,7 +118,7 @@ public class HashFunctions {
 		System.out.println(HashFunctions.getBinaryByteString(test2));
 
 		// test diff method
-		byte[] test3 = {0x01, 0x01, 0x01};
+		byte[] test3 = {0x11, 0x11, 0x01};
 		System.out.println(HashFunctions.getBinaryByteString(test3));
 		System.out.println(HashFunctions.diff(test1, test3));
 
