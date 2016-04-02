@@ -19,6 +19,11 @@ import java.util.Arrays;
 
 public class HashFunctions {
 
+	//FROM DEMO CODE
+	//as with encryption, we create and initialize an object
+	//that will execute the hash function
+	public static MessageDigest md;
+
 	/**
 	 * Receives two byte arrays and determines the number of bits
 	 * that are different between the two arrays. Assumes both byte
@@ -28,9 +33,13 @@ public class HashFunctions {
 	public static int diff(byte[] a, byte[] b) {
 
 		int diffCount = 0;
-		for(int i = 0; i < a.length; i++) {
-			for(int j = 0; j < 8; j++) {
-				diffCount += (a[i] >> j) ^ (b[i] >> j);
+
+		String strA = HashFunctions.getBinaryByteString(a);
+		String strB = HashFunctions.getBinaryByteString(b);
+
+		for(int i = 0; i < strA.length(); i++) {
+			if(strA.charAt(i) != strB.charAt(i)) {
+				diffCount++;
 			}
 		}
 
@@ -52,8 +61,6 @@ public class HashFunctions {
 		if(position >= 8 * a.length || position <= 0) {
 			return a;
 		}
-
-		// a[0] ^ (0x01 << position % 8)
 
 		int arrPos = (position % 8);
 		int arrNum = (int)Math.floor(position / 8);
@@ -109,11 +116,6 @@ public class HashFunctions {
 		return diff;
 
 	}
-
-	//FROM DEMO CODE
-	//as with encryption, we create and initialize an object
-	//that will execute the hash function
-	public static MessageDigest md;
 
 	//FROM DEMO CODE
 	//Truncated version of hash; just take first 4 bytes
