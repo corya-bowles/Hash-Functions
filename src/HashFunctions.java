@@ -58,7 +58,7 @@ public class HashFunctions {
 
 		String[] binStringArr = HashFunctions.getBinaryByteArrayString(a);
 
-		if(position >= 8 * a.length || position <= 0) {
+		if(position >= 8 * a.length || position < 0) {
 			return a;
 		}
 
@@ -68,21 +68,23 @@ public class HashFunctions {
 		binStringArr[arrNum] = binStringArr[arrNum].substring(0, arrPos) + 
 			newPosVal + binStringArr[arrNum].substring(arrPos + 1);
 
+		byte[] fByteArr = new byte[a.length];
+
 		try {
 
-			byte[] fByteArr = new byte[a.length];
 			for(int i = 0; i < a.length; i++) {
-				fByteArr[i] = (byte)(Byte.parseByte("+" + (binStringArr[i]), 2));
+				short shortInt = Short.parseShort(binStringArr[i], 2);
+				int unsignedInt = shortInt & 0xff;
+				fByteArr[i] = (byte)(unsignedInt);
 			}
 
 			return fByteArr;
 
 		} catch(NumberFormatException e) {
-			// e.printStackTrace();
-			// System.out.println("NumberFormatException flipping bit " + position);
+			e.printStackTrace();
 		}
 
-		return a;
+		return fByteArr;
 
 	}
 
@@ -155,9 +157,8 @@ public class HashFunctions {
 	public static byte[] H(byte [] msg){
 		return Arrays.copyOfRange(md.digest(msg), 0, 4);
 	}
-	
 
-	public static void main(String[] args) {
+	public static void test() {
 
 		// test print method
 		byte[] test1 = {0x01, 0x00, 0x00};
@@ -172,7 +173,9 @@ public class HashFunctions {
 		System.out.println(HashFunctions.getBinaryByteString(test3));
 		System.out.println(HashFunctions.diff(test1, test3));
 
-		System.out.println("Begin part 2");
+	}
+
+	public static void main(String[] args) {
 
 		//SHA-1 is one of the most widely used hash functions
 		//Creates an instance of a SHA-1 mdSUM to be used in this class or something like that, right?  
@@ -193,7 +196,7 @@ public class HashFunctions {
 		int[] msgBitChangeCount = new int[32];
 
 		int totalDiffs = 0;
-		int lowestDiff = 0;
+		int lowestDiff = -1;
 		int highestDiff = 0;
 		int msgCount = 0;
 		double avgDiffCount = 0;
@@ -202,7 +205,7 @@ public class HashFunctions {
 			byte[] newMsgHash4 = H(md.digest(HashFunctions.flip(arbM, i)));
 			int diffCount = HashFunctions.diff(newMsgHash4, arbMHash4);
 			
-			if(diffCount < lowestDiff) {
+			if(lowestDiff == -1 || diffCount < lowestDiff) {
 				lowestDiff = diffCount;
 			}
 
