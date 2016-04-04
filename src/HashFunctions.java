@@ -215,9 +215,12 @@ public class HashFunctions {
 
 			HashFunctions.updateBitChangeCount(arbMHash4, newMsgHash4, msgBitChangeCount);
 
+			System.out.println("Amount of bits that changed = " + diffCount);
 			totalDiffs += diffCount;
 			msgCount++;
 		}
+
+		System.out.println();
 
 		avgDiffCount = totalDiffs / msgCount;
 
@@ -226,6 +229,8 @@ public class HashFunctions {
 		System.out.println("Highest diff count = " + highestDiff);
 		System.out.println("Average diff count = " + avgDiffCount);
 		System.out.println("Total diffs = " + totalDiffs);
+
+		System.out.println();
 
 		System.out.println("Change frequency for each bit:");
 
